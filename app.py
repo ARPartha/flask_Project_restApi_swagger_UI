@@ -1,4 +1,5 @@
-from flask import Flask, jsonify, request, make_response
+import flask
+from flask import Flask, jsonify, request, make_response, redirect
 import jwt
 import datetime
 from functools import wraps
@@ -7,16 +8,7 @@ from flask_swagger_ui import get_swaggerui_blueprint
 app = Flask(__name__)
 
 ### swagger specific ###
-SWAGGER_URL = '/swagger'
-API_URL = '/static/swagger.json'
-SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
-    SWAGGER_URL,
-    API_URL,
-    config={
-        'app_name': "Seans-Python-Flask-REST-Boilerplate"
-    }
-)
-app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
+
 ### end swagger specific ###
 
 
@@ -47,17 +39,32 @@ def token_required(f):
 
 
 # Unprotected Route and function
-@app.route('/unprotected')
-def unprotected():
-    return jsonify({'message': 'Anyone can view this.'})
+@app.route('/')
+def index():
+    return redirect('http://127.0.0.1:5000/login')
+
+# @app.route('/unprotected/<id>',methods=['GET'])
+# def unprotected(id):
+#     print(id)
+#     return jsonify(id)
 
 
 # Protected Route and function
 @app.route('/protected')
 @token_required
 def protected():
-    return jsonify({'message': 'Only available to people with valid tokens.'})
-
+    #return jsonify({'message': 'Only available to people with valid tokens.'})
+    SWAGGER_URL = '/swagger'
+    API_URL = '/static/swagger.json'
+    SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
+        SWAGGER_URL,
+        API_URL,
+        config={
+            'app_name': "Seans-Python-Flask-REST-Boilerplate"
+        }
+    )
+    app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
+    return redirect("http://127.0.0.1:5000/swagger",code=302)
 
 # Login Route and function
 @app.route('/login')

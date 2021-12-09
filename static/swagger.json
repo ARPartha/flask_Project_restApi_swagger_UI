@@ -68,7 +68,7 @@
         }
       }
     },
-    "/request/{id}": {
+    "/unprotected/{id}": {
       "parameters": [
         {
           "name": "id",
