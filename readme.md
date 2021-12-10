@@ -4,7 +4,7 @@
 <h2><strong>Install Mysql And Mysql connector:</strong></h2>pip install mysql-connector-python
 <h1>Run Instructions:</h1>
 pip install -r requirements.txt
-python app.py
+python3 app.py
 
 <h1>Direction</h1>
 <h2> First:</h2> 127.0.0.1:5000/login <br>
