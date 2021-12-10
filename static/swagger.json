@@ -1,236 +1,180 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "description": "sean",
+    "description": "Condo_House",
     "version": "1.0.0",
-    "title": "Resful Api using S",
+    "title": "Find-Best-Condo-House",
     "license": {
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
     }
   },
-  "servers": [
-    {
-      "url": "/"
-    }
-  ],
   "tags": [
     {
-      "name": "Book Request",
-      "description": "Example API for requesting and return book requests"
+      "name": "House Search",
+      "description": "Example API for searching for house"
     }
   ],
   "paths": {
-    "/request": {
-      "get": {
-        "tags": [
-          "Book Request"
-        ],
-        "summary": "Returns bookRequests",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/components/schemas/bookRequests"
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Book Request"
-        ],
-        "summary": "Create a new book request system",
-        "requestBody": {
-          "description": "Book Request Post Object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/bookRequestPostBody"
-              }
-            }
-          }
-        },
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "201": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/components/schemas/id"
-            }
-          },
-          "400": {
-            "description": "Failed. Bad post data."
-          }
-        }
-      }
-    },
-    "/unprotected/{id}": {
+        "/house/{title}/{bedroom}/{sleeps}/{bathroom}/{price}/{location}": {
       "parameters": [
         {
-          "name": "id",
+          "name": "title",
           "in": "path",
-          "required": true,
-          "description": "ID of the cat that we want to match",
+          "required": false,
+          "description": "Name for condo",
+          "type": "string"
+        },
+        {
+          "name": "bedroom",
+          "in": "path",
+          "required": false,
+          "description": "Define bedroom",
+          "type": "string"
+        },
+        {
+          "name": "sleeps",
+          "in": "path",
+          "required": false,
+          "description": "Define sleeps",
+          "type": "string"
+        },
+        {
+          "name": "bathroom",
+          "in": "path",
+          "required": false,
+          "description": "Define bathroom",
+          "type": "string"
+        },
+        {
+          "name": "price",
+          "in": "path",
+          "required": false,
+          "description": "Define price",
+          "type": "string"
+        },
+        {
+          "name": "location",
+          "in": "path",
+          "required": false,
+          "description": "Condo location",
           "type": "string"
         }
       ],
       "get": {
         "tags": [
-          "Book Request"
+          "House request"
         ],
-        "summary": "Get book request with given ID",
+        "summary": "Find House with given data",
         "parameters": [
           {
+            "name": "title",
             "in": "path",
-            "name": "id",
-            "required": true,
-            "description": "Book Request id",
+            "required": false,
+            "description": "Name for condo",
             "schema": {
-              "$ref": "#/components/schemas/id"
+              "$ref": "#/components/schemas/title"
+            }
+          },
+          {
+            "name": "bedroom",
+            "in": "path",
+            "required": false,
+            "description": "Define bedroom",
+            "schema": {
+              "$ref": "#/components/schemas/bedroom"
+            }
+          },
+          {
+            "name": "sleeps",
+            "in": "path",
+            "required": false,
+            "description": "Define sleeps",
+            "schema": {
+              "$ref": "#/components/schemas/sleeps"
+            }
+          },
+          {
+            "name": "bathroom",
+            "in": "path",
+            "required": false,
+            "description": "Define bathroom",
+            "schema": {
+              "$ref": "#/components/schemas/bathroom"
+            }
+          },
+          {
+            "name": "price",
+            "in": "path",
+            "required": false,
+            "description": "Define price",
+            "schema": {
+              "$ref": "#/components/schemas/price"
+            }
+          },
+          {
+            "name": "location",
+            "in": "path",
+            "required": false,
+            "description": "Condo location",
+            "schema": {
+              "$ref": "#/components/schemas/location"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/components/schemas/bookRequest"
-            }
+            "description": "OK"
           },
           "400": {
             "description": "Failed. Misunderstood Request."
           },
           "404": {
-            "description": "Failed. Book request not found."
+            "description": "Failed. House request not found."
           }
         }
-      },
-      "put": {
-        "summary": "edit a book request by ID",
-        "tags": [
-          "Book Request"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "description": "Book Request id",
-            "schema": {
-              "$ref": "#/components/schemas/id"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "Book Request Object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/bookRequest"
-              }
-            }
-          }
-        },
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/components/schemas/bookRequest"
-            }
-          },
-          "400": {
-            "description": "Failed. Bad post data."
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete Book Request by ID",
-        "tags": [
-          "Book Request"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "description": "Book Request Id",
-            "schema": {
-              "$ref": "#/components/schemas/id"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/components/schemas/id"
-            }
-          },
-          "400": {
-            "description": "Failed. Misunderstood Request."
-          },
-          "404": {
-            "description": "Failed. Book Request not found."
-          }
-        }
-      }
-    }
-  },
+      }}},
   "components": {
     "schemas": {
-      "id": {
+      "title": {
         "properties": {
-          "uuid": {
+          "title": {
             "type": "string"
           }
         }
       },
-      "bookRequestPostBody": {
-        "type": "object",
+      "bedroom": {
         "properties": {
-          "title": {
-            "type": "string",
-            "format": "string"
-          },
-          "email": {
-            "type": "string",
-            "format": "email"
+          "bed": {
+            "type": "string"
           }
         }
       },
-      "bookRequest": {
-        "type": "object",
+      "sleeps": {
         "properties": {
-          "title": {
-            "type": "string",
-            "format": "string"
-          },
-          "email": {
-            "type": "string",
-            "format": "email"
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "number"
+          "sleep": {
+            "type": "string"
           }
         }
       },
-      "bookRequests": {
-        "type": "object",
+      "bathroom": {
         "properties": {
-          "bookRequest": {
-            "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/bookRequest"
-            }
+          "bath": {
+            "type": "string"
+          }
+        }
+      },
+      "price": {
+        "properties": {
+          "money": {
+            "type": "string"
+          }
+        }
+      },
+      "location": {
+        "properties": {
+          "loc": {
+            "type": "string"
           }
         }
       }
