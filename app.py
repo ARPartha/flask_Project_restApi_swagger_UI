@@ -23,6 +23,16 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'mysecretkey'
 
+SWAGGER_URL = '/swagger'
+API_URL = '/static/swagger.json'
+SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "Seans-Python-Flask-REST-Boilerplate"
+    }
+)
+app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 
 # Token Decorator
 def token_required(f):
@@ -151,16 +161,7 @@ def house():
 @token_required
 def protected():
     #return jsonify({'message': 'Only available to people with valid tokens.'})
-    SWAGGER_URL = '/swagger'
-    API_URL = '/static/swagger.json'
-    SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
-        SWAGGER_URL,
-        API_URL,
-        config={
-            'app_name': "Seans-Python-Flask-REST-Boilerplate"
-        }
-    )
-    app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
+
     return redirect("http://127.0.0.1:5000/swagger",code=302)
 
 # Login Route and function
