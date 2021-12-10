@@ -5,8 +5,6 @@ import datetime
 from functools import wraps
 from flask_swagger_ui import get_swaggerui_blueprint
 from mysql.connector import cursor
-
-from Hotels import locdata
 import mysql.connector
 
 import json
@@ -55,15 +53,10 @@ def index():
 #     loc= locdata(id)
 #     return loc
 
-@app.route('/house/<title>', methods=['GET'])
-@app.route('/house/<title>/<bedroom>', methods=['GET'])
-@app.route('/house/<title>/<bedroom>/<sleeps>', methods=['GET'])
-@app.route('/house/<title>/<bedroom>/<sleeps>/<bathroom>', methods=['GET'])
-@app.route('/house/<title>/<bedroom>/<sleeps>/<bathroom>/<price>', methods=['GET'])
-@app.route('/house/<title>/<bedroom>/<sleeps>/<bathroom>/<price>/<location>', methods=['GET'])
-def house(title='any', bedroom='0', sleeps='0', location='any',bathroom='0',price='0'):
-
-    condo = []
+@app.route('/data', methods=['GET'])
+def house():
+   # title bedroom sleeps bathroom price location
+    hoteldata=[]
 
     db_connector = mysql.connector.connect(
         host="localhost",
@@ -72,10 +65,54 @@ def house(title='any', bedroom='0', sleeps='0', location='any',bathroom='0',pric
         database="Scrapping"
     )
 
-    cursor = db_connector.cursor()
-# sleep  	bedroom  	bathroom  	price
-    query = ("SELECT * FROM datatable WHERE location ="+f"'{location}'  OR price=" + f"'{price}' OR bedroom=" + f"'{bedroom}'OR bathroom=" + f"'{bathroom}' OR sleep=" + f"'{sleeps}'")
 
+    title = request.args.get('title')
+    bedroom = request.args.get('bedroom')
+    sleep = request.args.get('sleeps')
+    bathroom = request.args.get('bathroom')
+    price = request.args.get('price')
+    location = request.args.get('location')
+
+    cursor = db_connector.cursor()
+# sleep  	bedroom  	bathroom  	price title
+    sql= "SELECT * FROM datatable WHERE "
+    valudata=0
+
+    if(title!=None):
+        if(sql=='SELECT * FROM datatable WHERE '):
+            sql=sql+"title="+f"'{title}'"
+        else:
+            sql = sql + "AND title=" + f"' {title}'"
+
+    if(location!=None):
+        if (sql == 'SELECT * FROM datatable WHERE '):
+            sql=sql+"location="+f"'{location}'"
+        else:
+            sql = sql + "AND location=" + f"'{location}'"
+    if(bedroom!=None):
+        if (sql == 'SELECT * FROM datatable WHERE '):
+            sql=sql+"bedroom="+f"'{bedroom}'"
+        else:
+            sql = sql + "AND bedroom>=" + f"'{bedroom}'"
+    if(bathroom!=None):
+        if (sql == 'SELECT * FROM datatable WHERE '):
+            sql=sql+"bathroom>="+f"'{bathroom}'"
+        else:
+            sql = sql + "AND bathroom>=" + f"'{bathroom}'"
+    if(sleep!=None):
+        if (sql == 'SELECT * FROM datatable WHERE '):
+            sql=sql+"sleep="+f"'{sleep}'"
+        else:
+            sql = sql + "AND sleep>=" + f"'{sleep}'"
+    if(price!=None):
+        if (sql == 'SELECT * FROM datatable WHERE '):
+            sql=sql+"price>="+f"'${price}'"
+        else:
+            sql = sql + "AND price>=" + f"'${price}'"
+
+
+    # query = ("SELECT * FROM datatable WHERE location ="+f"'{location}'  OR price=" + f"'{price}' OR bedroom=" + f"'{bedroom}'OR bathroom=" + f"'{bathroom}' OR sleep=" + f"'{sleeps}'")
+    query=sql
     print(query)
     cursor.execute(query)
 
@@ -96,12 +133,12 @@ def house(title='any', bedroom='0', sleeps='0', location='any',bathroom='0',pric
             }
 
         }
-        condo.append(data)
+        hoteldata.append(data)
 
-    houseJson = json.dumps(condo, indent=4)
-    print(houseJson)
+    Json = json.dumps(hoteldata, indent=4)
+    print(Json)
     # print(title, bedroom, sleeps, location)
-    return houseJson
+    return Json
 
 # Protected Route and function
 @app.route('/protected')

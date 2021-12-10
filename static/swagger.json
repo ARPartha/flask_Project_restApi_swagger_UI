@@ -16,46 +16,46 @@
     }
   ],
   "paths": {
-        "/house/{title}/{bedroom}/{sleeps}/{bathroom}/{price}/{location}": {
+        "/data": {
       "parameters": [
         {
           "name": "title",
-          "in": "path",
+          "in": "query",
           "required": false,
           "description": "Name for condo",
           "type": "string"
         },
         {
           "name": "bedroom",
-          "in": "path",
+          "in": "query",
           "required": false,
           "description": "Define bedroom",
           "type": "string"
         },
         {
           "name": "sleeps",
-          "in": "path",
+          "in": "query",
           "required": false,
           "description": "Define sleeps",
           "type": "string"
         },
         {
           "name": "bathroom",
-          "in": "path",
+          "in": "query",
           "required": false,
           "description": "Define bathroom",
           "type": "string"
         },
         {
           "name": "price",
-          "in": "path",
+          "in": "query",
           "required": false,
           "description": "Define price",
           "type": "string"
         },
         {
           "name": "location",
-          "in": "path",
+          "in": "query",
           "required": false,
           "description": "Condo location",
           "type": "string"
@@ -69,7 +69,7 @@
         "parameters": [
           {
             "name": "title",
-            "in": "path",
+            "in": "query",
             "required": false,
             "description": "Name for condo",
             "schema": {
@@ -78,7 +78,7 @@
           },
           {
             "name": "bedroom",
-            "in": "path",
+            "in": "query",
             "required": false,
             "description": "Define bedroom",
             "schema": {
@@ -87,7 +87,7 @@
           },
           {
             "name": "sleeps",
-            "in": "path",
+            "in": "query",
             "required": false,
             "description": "Define sleeps",
             "schema": {
@@ -96,7 +96,7 @@
           },
           {
             "name": "bathroom",
-            "in": "path",
+            "in": "query",
             "required": false,
             "description": "Define bathroom",
             "schema": {
@@ -105,7 +105,7 @@
           },
           {
             "name": "price",
-            "in": "path",
+            "in": "query",
             "required": false,
             "description": "Define price",
             "schema": {
@@ -114,7 +114,7 @@
           },
           {
             "name": "location",
-            "in": "path",
+            "in": "query",
             "required": false,
             "description": "Condo location",
             "schema": {
