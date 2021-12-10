@@ -1,18 +1,15 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "description": "Condo_House",
+    "description": "Assignment",
     "version": "1.0.0",
-    "title": "Find-Best-Condo-House",
-    "license": {
-      "name": "MIT",
-      "url": "https://opensource.org/licenses/MIT"
-    }
+    "title": "Rest Api using Swagger"
+
   },
   "tags": [
     {
       "name": "House Search",
-      "description": "Example API for searching for house"
+      "description": "Example API for searching for Hotels"
     }
   ],
   "paths": {

@@ -101,7 +101,7 @@ def house():
             sql = sql + "AND bathroom>=" + f"'{bathroom}'"
     if(sleep!=None):
         if (sql == 'SELECT * FROM datatable WHERE '):
-            sql=sql+"sleep="+f"'{sleep}'"
+            sql=sql+"sleep>="+f"'{sleep}'"
         else:
             sql = sql + "AND sleep>=" + f"'{sleep}'"
     if(price!=None):
@@ -127,13 +127,19 @@ def house():
             "Bathrooms": x[4],
             "Price": x[5],
             "Picture": {
-                "Picture_1": x[6][1:-1],
-                "Picture_2": x[7][1:-1],
-                "Picture_3": x[8][1:-1],
+                "Picture_1": x[6],
+                "Picture_2": x[7],
+                "Picture_3": x[8],
             }
 
         }
         hoteldata.append(data)
+
+    # Json = json.dumps(hoteldata, indent=4)
+
+
+    hoteldata.sort(key=lambda x: x["Price"])
+
 
     Json = json.dumps(hoteldata, indent=4)
     print(Json)
